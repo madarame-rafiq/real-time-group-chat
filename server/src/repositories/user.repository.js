@@ -11,3 +11,15 @@ export const createUser = async (username, password_hash) => {
 
     return result.rows[0];
 }
+
+export const findUserNameByusername = async (username) => {
+    const query = `
+        SELECT id, username, password_hash, created_at
+        FROM users
+        WHERE username = $1; 
+    `;
+
+    const result = await pool.query(query, [username]);
+
+    return result.rows[0] || null;
+}
