@@ -1,6 +1,6 @@
 import pool from '../db/pool.js'
 
-const createMessage = async (roomId, senderId, content) => {
+export const createMessage = async (roomId, senderId, content) => {
     const query = `
         INSERT INTO messages (room_id, sender_id, content)
         VALUES ($1, $2, $3)
