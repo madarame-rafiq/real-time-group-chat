@@ -106,3 +106,14 @@ export const addRoomMember = async (roomId, userId) => {
     const result = pool.query(query, [roomId, userId]);
     return result.rows[0];
 }
+
+export const isRoomMember = async (roomId, userId) => {
+    const query = `
+        SELECT 1
+        FROM room_members
+        WHERE room_id = $1 AND user_id = $2;
+    `;
+    const result = await pool.query(query, [roomId, userId]);
+
+    return result.rowCount > 0;
+}
