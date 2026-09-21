@@ -1,5 +1,5 @@
-import { isRoomMember } from "../repositories/room.repositories";
-import { createRoomMessage } from "../services/message.service";
+import { isRoomMember } from "../repositories/room.repositories.js";
+import { createRoomMessage } from "../services/message.service.js";
 
 
 export const registerMessageHandler = async (io, socket) => {
@@ -7,6 +7,7 @@ export const registerMessageHandler = async (io, socket) => {
         try {
             
             const isMember = await isRoomMember(roomId, socket.user.id);
+            console.log(isMember);
 
             if (!isMember) {
                 callback({

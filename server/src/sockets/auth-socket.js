@@ -1,21 +1,26 @@
-import { parse } from 'cookie';
-import { findSessionWithUser } from '../repositories/session.repositories.js';
+import * as cookie from "cookie";
+import { findSessionWithUser } from "../repositories/session.repositories.js";
 
 export const authenticateSession = async (socket, next) => {
     try {
+        const cookies = cookie.parse(
+            socket.handshake.headers.cookie || ""
+        );
 
-        const cookies = parse(socker.handshake.headers.cookies || "");
-        
         const sessionId = cookies.session_id;
 
         if (!sessionId) {
-            return next(new Error("Authentication required"));
+            return next(
+                new Error("Authentication required")
+            );
         }
 
         const session = await findSessionWithUser(sessionId);
 
         if (!session) {
-            return next(new Error("Invalid or expired session"));
+            return next(
+                new Error("Invalid or expired session")
+            );
         }
 
         socket.user = {
@@ -29,8 +34,7 @@ export const authenticateSession = async (socket, next) => {
         };
 
         next();
-
     } catch (error) {
         next(error);
     }
-}
+};

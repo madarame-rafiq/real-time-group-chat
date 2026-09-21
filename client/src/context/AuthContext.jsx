@@ -3,7 +3,7 @@ import { getCurrentUser, loginUser, logoutUser, registerUser } from "../api/auth
 import { socketConnect, socketDisconnect } from "../socket/socket-manager";
 
 
-const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
 
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         try {
             await logoutUser();
         } finally {
-            setUser(false);
+            setUser(null);
             socketDisconnect();
         }
     }

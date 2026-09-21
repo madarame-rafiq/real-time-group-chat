@@ -18,12 +18,16 @@ const Home = () => {
     const [creating, setCreating] = useState(false);
     const [joining, setJoining] = useState(false);
 
-    const loadRooms = async () => {
+    
+
+    useEffect(() => {
+        const loadRooms = async () => {
         try {
             setLoading(true);
             setError("");
 
             const data = await getRooms();
+         
             setRooms(data.rooms);
         } catch (error) {
             setError(error.message);
@@ -32,7 +36,6 @@ const Home = () => {
         }
     };
 
-    useEffect(() => {
         loadRooms();
     }, []);
 

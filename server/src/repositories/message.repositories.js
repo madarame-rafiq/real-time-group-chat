@@ -2,11 +2,29 @@ import pool from '../db/pool.js'
 
 export const createMessage = async (roomId, senderId, content) => {
     const query = `
-        INSERT INTO messages (room_id, sender_id, content)
-        VALUES ($1, $2, $3)
-        RETURNING id, room_id, sender_id, content;
+        WITH inserted AS (
+            INSERT INTO messages (room_id, sender_id, content)
+            VALUES ($1, $2, $3)
+            RETURNING id, room_id, sender_id, content, created_at
+        )
+        SELECT
+            inserted.id,
+            inserted.room_id,
+            inserted.sender_id,
+            users.username AS sender_username,
+            inserted.content,
+            inserted.created_at
+        FROM inserted
+        LEFT JOIN users
+            ON users.id = inserted.sender_id;
     `;
-    const result = await pool.query(query, [roomId, senderId, content]);
+
+    const result = await pool.query(query, [
+        roomId,
+        senderId,
+        content,
+    ]);
+
     return result.rows[0];
 }
 

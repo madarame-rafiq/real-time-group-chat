@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api";
+const API_URL = "http://localhost:5001";
 
 const handleResponse = async (response) => {
     const data = await response.json();
@@ -11,7 +11,7 @@ const handleResponse = async (response) => {
 };
 
 export const getRooms = async () => {
-    const response = await fetch(`${API_URL}/rooms`, {
+    const response = await fetch(`${API_URL}/rooms/rooms`, {
         credentials: "include",
     });
 
@@ -25,7 +25,7 @@ export const createRoom = async (name) => {
             "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ roomName:name }),
     });
 
     return handleResponse(response);
@@ -38,7 +38,7 @@ export const joinRoom = async (code) => {
             "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ code }),
+        body: JSON.stringify({ roomCode: code }),
     });
 
     return handleResponse(response);

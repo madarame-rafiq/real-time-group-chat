@@ -1,14 +1,16 @@
+
+
 import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useChatSocket } from "../hooks/useChatSocket.js";
 import { getRoomMessages } from "../api/message.api.js";
-import { useParams } from "react-router-dom";
 
 const ChatRoom = () => {
+    const { roomId } = useParams();
+
     const [messages, setMessages] = useState([]);
     const [content, setContent] = useState("");
     const [loading, setLoading] = useState(true);
-
-    const { roomId } = useParams();
 
     const addMessages = useCallback((incomingMessages) => {
         setMessages((currentMessages) => {
@@ -72,8 +74,9 @@ const ChatRoom = () => {
         if (!trimmedContent) {
             return;
         }
-
+console.log("ds");
         const response = await sendMessage(trimmedContent);
+        console.log(response);
 
         if (!response.success) {
             console.error(response.message);
@@ -109,9 +112,7 @@ const ChatRoom = () => {
                     placeholder="Type a message..."
                 />
 
-                <button type="submit">
-                    Send
-                </button>
+                <button type="submit">Send</button>
             </form>
         </div>
     );

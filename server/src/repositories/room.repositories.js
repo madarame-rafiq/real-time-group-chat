@@ -91,7 +91,7 @@ export const findRoomMember = async (roomId, userId) => {
     const query = `
         SELECT room_id, user_id, joined_at
         FROM room_members
-        WHERE room_id = $1 AND user_id = 2;
+        WHERE room_id = $1 AND user_id = $2;
     `;
     const result = await pool.query(query, [roomId, userId]);
     return result.rows[0] | null;
@@ -104,7 +104,7 @@ export const addRoomMember = async (roomId, userId) => {
         RETURNING room_id, user_id, joined_at;
     `;
     const result = pool.query(query, [roomId, userId]);
-    return result.rows[0];
+    // return result.rows[0];
 }
 
 export const isRoomMember = async (roomId, userId) => {

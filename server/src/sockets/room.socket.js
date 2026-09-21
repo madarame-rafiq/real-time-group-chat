@@ -31,7 +31,7 @@ export const registerRoomHandler = (io, socket) => {
         }
     });
 
-    socket.on("room:leave", ({ roomId }, callback) => {
+    socket.on("room:leave", async ({ roomId }, callback) => {
         try {
             await socket.leave(roomId);
 

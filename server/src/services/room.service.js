@@ -27,12 +27,14 @@ export const createNewRoom = async (userId, name) => {
 
 export const joinRoomByCode = async (code, userId) => {
     const roomExists = await findRoomByCode(code);
-
-    if (!code) {
+   
+  
+    if (!roomExists) {
         const error = new Error("The room does not exists");
         error.statusCode = 404;
         throw error;
     }
+
 
     const alreadyMember = await findRoomMember(roomExists.id, userId);
 
