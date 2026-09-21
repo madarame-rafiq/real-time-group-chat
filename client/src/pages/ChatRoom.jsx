@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { useChatSocket } from "../hooks/useChatSocket.js";
 import { getRoomMessages } from "../api/message.api.js";
+import { useParams } from "react-router-dom";
 
-const ChatRoom = ({ roomId }) => {
+const ChatRoom = () => {
     const [messages, setMessages] = useState([]);
     const [content, setContent] = useState("");
     const [loading, setLoading] = useState(true);
+
+    const { roomId } = useParams();
 
     const addMessages = useCallback((incomingMessages) => {
         setMessages((currentMessages) => {
