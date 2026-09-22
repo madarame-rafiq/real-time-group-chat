@@ -5,7 +5,7 @@ export const registerRoomHandler = (io, socket) => {
     socket.on("room:join", async({ roomId }, callback) => {
         try {
             
-            const isMember = await isRoomMember(roomId, secoket.user.id);
+            const isMember = await isRoomMember(roomId, socket.user.id);
 
             if (!isMember) {
                 callback({

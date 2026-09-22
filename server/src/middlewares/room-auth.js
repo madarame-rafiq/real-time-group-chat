@@ -6,7 +6,7 @@ export const requireRoomMember = async (req, res, next) => {
     
         const { roomId } = req.params;
 
-        const isMember = await isRoomMember(roomId, req,user.id);
+        const isMember = await isRoomMember(roomId, req.user.id);
 
         if (!isMember){
             res.status(403).json({
@@ -17,6 +17,7 @@ export const requireRoomMember = async (req, res, next) => {
         next();
 
     } catch (error) {
+        console.log("Inside auth middleware: error ", error);
         next(error);
     }
 }

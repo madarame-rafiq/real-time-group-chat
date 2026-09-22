@@ -5,6 +5,7 @@ import { createRoomMessage } from "../services/message.service.js";
 export const registerMessageHandler = async (io, socket) => {
     socket.on("message:send", async ({ roomId, content }, callback) => {
         try {
+            console.log("socker user? ", socket.user);
             
             const isMember = await isRoomMember(roomId, socket.user.id);
             console.log(isMember);
@@ -14,6 +15,7 @@ export const registerMessageHandler = async (io, socket) => {
                     success: false,
                     message: 'You are not a member of the room',
                 });
+                return;
             }
 
             const message = await createRoomMessage(roomId, socket.user.id, content);

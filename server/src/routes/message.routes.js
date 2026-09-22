@@ -9,4 +9,6 @@ import { getMessages } from '../controllers/message.controller.js';
 
 const router = express.Router();
 
-router.get('/rooms/:roomId/messages', requireAuth, requireRoomMember, validate(getMessagesSchema), getMessages);
+router.get('/rooms/:roomId/', requireAuth, requireRoomMember, validate(getMessagesSchema, "query"), getMessages);
+
+export default router

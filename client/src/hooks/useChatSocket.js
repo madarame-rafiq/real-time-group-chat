@@ -32,6 +32,8 @@ export const useChatSocket = ({ roomId, onMessage }) => {
     }, [roomId, onMessage]);
 
     const sendMessage = (content) => {
+        console.log("Connected? ", socket.connected);
+        console.log("socker Id? ", socket?.id);
         return new Promise((resolve) => {
             socket.emit("message:send", { roomId, content }, resolve);
         });    

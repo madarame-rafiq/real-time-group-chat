@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 //routes
 import authRouter from './routes/auth.routes.js'
 import roomRouter from './routes/room.routes.js'
+import messageRouter from './routes/message.routes.js'
 import { errorHandler } from './middlewares/error-handler.js';
 
 const app = express();
@@ -21,6 +22,8 @@ app.use(cookieParser());
 app.use('/auth', authRouter);
 
 app.use('/rooms', roomRouter);
+
+app.use('/messages', messageRouter);
 
 app.get('/health', (req, res) => {
     res.status(200).json({

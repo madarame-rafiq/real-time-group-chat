@@ -12,10 +12,13 @@ export const AuthProvider = ({ children }) => {
 
     const restoreCurrentSession = useCallback(async () => {
         try {
+            console.log("getting current user");
             const data = await getCurrentUser();
+            console.log(data.user);
             setUser(data.user);
             socketConnect();
-        } catch {
+        } catch(err) {
+            console.log("Error fetching the user: ",err);
             setUser(null);
         } finally {
             setLoading(false);

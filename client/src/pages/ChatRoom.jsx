@@ -77,7 +77,7 @@ const ChatRoom = () => {
 console.log("ds");
         const response = await sendMessage(trimmedContent);
         console.log(response);
-
+console.log(response);
         if (!response.success) {
             console.error(response.message);
             return;

@@ -1,9 +1,13 @@
-import * as cookie from "cookie";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const { parseCookie } = require("cookie");
+ 
 import { findSessionWithUser } from "../repositories/session.repositories.js";
 
 export const authenticateSession = async (socket, next) => {
     try {
-        const cookies = cookie.parse(
+        // console.log("parse type:", typeof parse);  // should print "function"   
+        const cookies = parseCookie(
             socket.handshake.headers.cookie || ""
         );
 
