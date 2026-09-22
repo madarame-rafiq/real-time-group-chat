@@ -3,13 +3,14 @@ import { getMe, login, logout, register } from '../controllers/auth.controllers.
 import { validate } from '../middlewares/validate.js';
 import { loginSchema, registerSchema } from '../validators/auth.validators.js';
 import { requireAuth } from '../middlewares/auth.js';
+import { authRateLimiter } from '../middlewares/rate-limit.js';
 
 
 const router = express.Router();
 
-router.post('/register', validate(registerSchema) ,register);
+router.post('/register', authRateLimiter, validate(registerSchema) ,register);
 
-router.post('/login', validate(loginSchema), login);
+router.post('/login', authRateLimiter, validate(loginSchema), login);
 
 router.get('/me', requireAuth, getMe);
 

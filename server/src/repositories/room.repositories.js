@@ -133,3 +133,20 @@ export const removeRoomMember = async (roomId, userId) => {
 
     return result.rows[0] || null;
 };
+
+export const findRoomById = async (roomId) => {
+    const query = `
+        SELECT
+            id,
+            name,
+            code,
+            created_by,
+            created_at
+        FROM rooms
+        WHERE id = $1;
+    `;
+
+    const result = await pool.query(query, [roomId]);
+
+    return result.rows[0] || null;
+};

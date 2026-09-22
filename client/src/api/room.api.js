@@ -55,3 +55,14 @@ export const leaveRoom = async (roomId) => {
 
     return handleResponse(response);
 };
+
+export const getRoom = async (roomId) => {
+    const response = await fetch(
+        `${API_URL}/rooms/${roomId}`,
+        {
+            credentials: "include",
+        }
+    );
+
+    return handleResponse(response);
+};

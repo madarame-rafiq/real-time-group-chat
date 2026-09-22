@@ -1,13 +1,16 @@
 import { isRoomMember } from "../repositories/room.repositories.js";
 import { createRoomMessage } from "../services/message.service.js";
+import { sendMessageSchema } from "../validators/message.validator.js";
 
 
 export const registerMessageHandler = async (io, socket) => {
-    socket.on("message:send", async ({ roomId, content }, callback) => {
+    socket.on("message:send", async (payload, callback) => {
         try {
             // console.log("socker user? ", socket.user);
 
             const result = sendMessageSchema.safeParse(payload);
+
+            const { roomId, content } = payload;
 
             if (!result.success) {
                 return callback({

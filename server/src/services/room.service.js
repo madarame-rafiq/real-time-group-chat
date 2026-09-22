@@ -1,4 +1,4 @@
-import { addRoomMember, createNewRoomWithMember, findRoomByCode, findRoomByUserId, findRoomMember, removeRoomMember } from "../repositories/room.repositories.js";
+import { addRoomMember, createNewRoomWithMember, findRoomByCode, findRoomById, findRoomByUserId, findRoomMember, removeRoomMember } from "../repositories/room.repositories.js";
 
 
 const generateRandomCode = () => {
@@ -68,4 +68,17 @@ export const leaveRoom = async (roomId, userId) => {
     }
 
     return removedMember;
+};
+
+
+export const getRoomById = async (roomId) => {
+    const room = await findRoomById(roomId);
+
+    if (!room) {
+        const error = new Error("Room not found");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    return room;
 };

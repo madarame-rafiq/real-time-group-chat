@@ -30,6 +30,7 @@ export const login = async (req, res, next) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
+            path: "/",
             expires: new Date(session.expires_at),
         });
 

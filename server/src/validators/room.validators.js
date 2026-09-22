@@ -5,7 +5,7 @@ export const roomNameSchema = z.object({
         .string()
         .trim()
         .min(1, "Room name is required!")
-        .max(100, "Room name cannot be longer than 100 characters!")
+        .max(30, "Room name cannot be longer than 30 characters!")
 });
 
 export const joinRoomSchema = z.object({
