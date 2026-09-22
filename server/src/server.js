@@ -10,6 +10,6 @@ const httpServer = http.createServer(app);
 
 initializeSocket(httpServer);
 
-httpServer.listen(PORT, () => {
-    console.log(`The server is listening at port: ${PORT}`);
+httpServer.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on port ${PORT}`);
 });
