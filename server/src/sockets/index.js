@@ -16,7 +16,7 @@ export const initializeSocket = (httpServer) => {
 
     
     io.on('connection', (socket) => {
-        console.log(`The socket: ${socket} is connected.`);
+        // console.log(`The socket: ${socket} is connected.`);
         
         registerRoomHandler(io, socket);
 

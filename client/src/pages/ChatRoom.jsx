@@ -46,14 +46,17 @@ const ChatRoom = () => {
 
             return Array.from(messageMap.values()).sort(
                 (a, b) =>
-                    new Date(a.created_at) -
-                    new Date(b.created_at)
+                    new Date(a.sent_at) -
+                    new Date(b.sent_at)
             );
         });
     }, []);
 
     const handleNewMessage = useCallback(
         (message) => {
+//             console.log("MESSAGE:", message);
+// console.log("sent_at:", message.sent_at);
+// console.log("DATE:", new Date(message.sent_at));
             addMessages([message]);
         },
         [addMessages]
@@ -171,6 +174,8 @@ const ChatRoom = () => {
         );
     }
 
+    
+
     return (
         <main className="flex min-h-screen flex-col bg-zinc-950 text-zinc-100">
             {/* Header */}
@@ -262,7 +267,7 @@ const ChatRoom = () => {
                                             }`}
                                         >
                                             {formatTime(
-                                                message.created_at
+                                                message.sent_at
                                             )}
                                         </p>
                                     </div>

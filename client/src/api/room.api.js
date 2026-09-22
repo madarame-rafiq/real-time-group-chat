@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5001";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const handleResponse = async (response) => {
     const data = await response.json();
@@ -25,7 +25,9 @@ export const createRoom = async (name) => {
             "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ roomName:name }),
+        body: JSON.stringify({
+            roomName: name,
+        }),
     });
 
     return handleResponse(response);
@@ -38,7 +40,9 @@ export const joinRoom = async (code) => {
             "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ roomCode: code }),
+        body: JSON.stringify({
+            roomCode: code,
+        }),
     });
 
     return handleResponse(response);
