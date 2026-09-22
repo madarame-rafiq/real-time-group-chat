@@ -117,3 +117,19 @@ export const isRoomMember = async (roomId, userId) => {
 
     return result.rowCount > 0;
 }
+
+export const removeRoomMember = async (roomId, userId) => {
+    const query = `
+        DELETE FROM room_members
+        WHERE room_id = $1
+          AND user_id = $2
+        RETURNING room_id, user_id;
+    `;
+
+    const result = await pool.query(query, [
+        roomId,
+        userId,
+    ]);
+
+    return result.rows[0] || null;
+};

@@ -43,3 +43,15 @@ export const joinRoom = async (code) => {
 
     return handleResponse(response);
 };
+
+export const leaveRoom = async (roomId) => {
+    const response = await fetch(
+        `${API_URL}/rooms/${roomId}`,
+        {
+            method: "DELETE",
+            credentials: "include",
+        }
+    );
+
+    return handleResponse(response);
+};

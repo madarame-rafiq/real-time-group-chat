@@ -13,3 +13,13 @@ export const getMessagesSchema = z.object({
         .datetime({ offset: true })
         .optional(),
 });
+
+export const sendMessageSchema = z.object({
+    roomId: z.string().uuid("Invalid room ID"),
+
+    content: z
+        .string()
+        .trim()
+        .min(1, "Message cannot be empty")
+        .max(2000, "Message cannot exceed 2000 characters"),
+});

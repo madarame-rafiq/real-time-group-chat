@@ -5,8 +5,19 @@ import { createRoomMessage } from "../services/message.service.js";
 export const registerMessageHandler = async (io, socket) => {
     socket.on("message:send", async ({ roomId, content }, callback) => {
         try {
-            console.log("socker user? ", socket.user);
-            
+            // console.log("socker user? ", socket.user);
+
+            const result = sendMessageSchema.safeParse(payload);
+
+            if (!result.success) {
+                return callback({
+                    success: false,
+                    message:
+                        result.error.issues[0].message,
+                });
+            }
+
+
             const isMember = await isRoomMember(roomId, socket.user.id);
             console.log(isMember);
 
@@ -36,5 +47,5 @@ export const registerMessageHandler = async (io, socket) => {
             });
         }
     });
-    
+
 }

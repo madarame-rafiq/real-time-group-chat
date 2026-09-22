@@ -1,4 +1,4 @@
-import { createNewRoom, getUserRooms, joinRoomByCode } from "../services/room.service.js";
+import { createNewRoom, getUserRooms, joinRoomByCode, leaveRoom as leaveRoomService, } from "../services/room.service.js";
 
 
 export const createRoom = async (req, res, next) => {
@@ -43,3 +43,21 @@ export const getRooms = async (req, res, next) => {
         next(error);
     }
 }
+
+
+export const leaveRoom = async (req, res, next) => {
+    try {
+        const { roomId } = req.params;
+
+        await leaveRoomService(
+            roomId,
+            req.user.id
+        );
+
+        res.status(200).json({
+            message: "Left room successfully",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
