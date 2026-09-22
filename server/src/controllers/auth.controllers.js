@@ -26,10 +26,18 @@ export const login = async (req, res, next) => {
         const { user, session } = await loginUser(username, password);
         // console.log(session)
 
+        // res.cookie("session_id", session.id, {
+        //     httpOnly: true,
+        //     secure: process.env.NODE_ENV === "production",
+        //     sameSite: "lax",
+        //     path: "/",
+        //     expires: new Date(session.expires_at),
+        // });
+
         res.cookie("session_id", session.id, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             path: "/",
             expires: new Date(session.expires_at),
         });
